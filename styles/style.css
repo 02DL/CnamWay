@@ -1,70 +1,62 @@
-body {
-    background-color: rgb(58, 57, 57);
-    color: white;
-}
-
-.main-index {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    gap: 4rem;
-
-    min-height: 100vh;
-    margin-top: 10rem;
-}
-
-
-.index-title h1 {
-    font-size: 6rem;
-    margin-bottom: 3rem;
-}
-
-input {
-    min-width: 90%;
-    width: 700px;
-    border-radius: 12px;
-    border: none;
-    height: 35px;
-}
-
-input[placeholder]{
-    text-align: center;
-    font-style: italic;
-}
-
-.negative-x-margin {
-    font-size: 1.5rem;
-    color: rgb(31, 30, 30);
-    position: absolute;
-    left: 6px;
-    top: 6px;
-}
-
-.form-field {
-    position: relative;
-}
-
-h1 {
-    text-transform: uppercase;
-}
-
-.header {
-    display: flex;
-    justify-content: end;
-}
-
-.logo {
-    display: flex;
-    margin-right: 1rem;
-    gap: .5rem;
-}
-
-.logo img {
-    object-fit: contain;
-    width: 100%;
-}
-
-.logo h1 {
-    font-size: 2rem;
+ /* Réinitialisation des styles */
+ * {
+    box-sizing: border-box;
     margin: 0;
-}
+    padding: 0;
+  }
+  
+  /* Style du logo */
+  .logo {
+    display: inline-block;
+  }
+  
+  .logo img {
+    height: 50px;
+    width: 50px;
+  }
+  
+  /* Style de la barre de navigation */
+  nav {
+    display: inline-block;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  nav ul {
+    list-style: none;
+  }
+  
+  nav ul li {
+    display: inline-block;
+  }
+  
+  nav ul li a {
+    display: block;
+    padding: 10px;
+    text-decoration: none;
+    color: #333;
+  }
+  
+  nav ul li a:hover {
+    background-color: #eee;
+  }
+  
+  /* Style du contenu principal */
+  main {
+    padding: 50px;
+    text-align: center;
+  }
+  
+  h1 {
+    margin-bottom: 20px;
+  }
+  
+  /* Style du pied de page */
+  footer {
+    background-color: #333;
+    color: #fff;
+    padding: 20px;
+    text-align: center;
+  }
+  
+  
