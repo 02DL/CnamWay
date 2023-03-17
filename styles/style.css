@@ -46,7 +46,7 @@ nav ul li a:hover {
 .user-login .icon-user {
 	width: 20px;
 	height: 20px;
-	background-image: url('icone-utilisateur.png');
+	background-image: url('icon-user.png');
 	background-size: cover;
 	margin-right: 10px;
 }
