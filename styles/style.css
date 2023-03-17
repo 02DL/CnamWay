@@ -64,6 +64,7 @@ nav ul li a:hover {
 
 #mapid {
   height: 400px;
+  background-color: lightgray;
 }
 
 .container {
@@ -72,17 +73,8 @@ nav ul li a:hover {
 	height: 100vh;
   }
   
-  .left-panel {
-	flex: 1;
-	background-color: lightgray;
-  }
+ 
   
-  /*carte*/
-  .right-panel {
-	flex: 2;
-	background-color: lightgray;
-  }
-
 
 
 
