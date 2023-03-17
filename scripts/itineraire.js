@@ -1,4 +1,4 @@
-fetch("https://api-ratp.pierre-grimaud.fr/v4/schedules/metros/4/chatelet/R")
+fetch("https://api-ratp.pierre-grimaud.fr/v4/traffic/metros/1")
 // récupére la réponse du serveur
 .then(response => {
     // lit le contenu JSON dans le corps de la réponse:
