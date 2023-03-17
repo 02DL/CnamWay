@@ -61,3 +61,7 @@ nav ul li a:hover {
 .user-login a:hover {
 	color: #000;
 }
+
+#mapid {
+  height: 400px;
+}
