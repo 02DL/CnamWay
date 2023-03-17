@@ -86,12 +86,6 @@ nav ul li a:hover {
 	margin: 0 auto;
   }
   
-  
-  input[type="text"], input[type="datetime-local"], input[type="submit"] {
-	padding: 5px;
-	margin-bottom: 10px;
-  }
-  
   input[type="submit"] {
 	background-color: #4CAF50;
 	color: white;
