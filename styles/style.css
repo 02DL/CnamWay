@@ -77,9 +77,10 @@ nav ul li a:hover {
 	background-color: lightgray;
   }
   
+  /*carte*/
   .right-panel {
 	flex: 2;
-	background-color: white;
+	background-color: lightgray;
   }
 
 
