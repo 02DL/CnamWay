@@ -65,3 +65,43 @@ nav ul li a:hover {
 #mapid {
   height: 400px;
 }
+
+.container {
+	display: flex;
+	flex-direction: row;
+	height: 100vh;
+  }
+  
+  .left-panel {
+	flex: 1;
+	background-color: lightgray;
+  }
+  
+  .right-panel {
+	flex: 2;
+	background-color: white;
+  }
+
+
+
+
+
+  form {
+	display: flex;
+	flex-direction: column;
+	width: 50%;
+	margin: 0 auto;
+  }
+  
+  
+  input[type="text"], input[type="datetime-local"], input[type="submit"] {
+	padding: 5px;
+	margin-bottom: 10px;
+  }
+  
+  input[type="submit"] {
+	background-color: #4CAF50;
+	color: white;
+	border: none;
+	cursor: pointer;
+  }

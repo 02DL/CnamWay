@@ -26,7 +26,29 @@
     <main>
       <h1>Bienvenue sur la page itinéraire</h1>
       <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed auctor aliquet enim, vel maximus velit malesuada vitae. Vestibulum ut ornare sapien.</p>
-      <div id="mapid"></div>
+     
+      <div class="container">
+        <div class="left-panel">
+          <form>
+            <label for="depart">Départ</label>
+            <input type="text" id="depart" name="depart">
+            
+            <label for="arrivee">Arrivée</label>
+            <input type="text" id="arrivee" name="arrivee">
+            
+            <label for="date-et-horaire">Date et horaire</label>
+            <input type="datetime-local" id="date-et-horaire" name="date-et-horaire">
+            
+            <input type="submit" value="Rechercher">
+          </form>
+          
+        </div>
+        <div class="right-panel">
+           <div id="mapid"></div>
+        </div>
+      </div>
+      
+     
     </main>
     <footer>
       <p>&copy; 2023 Cnamway. Tous droits réservés.</p>
