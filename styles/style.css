@@ -1,62 +1,63 @@
- /* Réinitialisation des styles */
- * {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-  }
-  
-  /* Style du logo */
-  .logo {
-    display: inline-block;
-  }
-  
-  .logo img {
-    height: 50px;
-    width: 50px;
-  }
-  
-  /* Style de la barre de navigation */
-  nav {
-    display: inline-block;
-    margin: 0 auto;
-    text-align: center;
-  }
-  
-  nav ul {
-    list-style: none;
-  }
-  
-  nav ul li {
-    display: inline-block;
-  }
-  
-  nav ul li a {
-    display: block;
-    padding: 10px;
-    text-decoration: none;
-    color: #333;
-  }
-  
-  nav ul li a:hover {
-    background-color: #eee;
-  }
-  
-  /* Style du contenu principal */
-  main {
-    padding: 50px;
-    text-align: center;
-  }
-  
-  h1 {
-    margin-bottom: 20px;
-  }
-  
-  /* Style du pied de page */
-  footer {
-    background-color: #333;
-    color: #fff;
-    padding: 20px;
-    text-align: center;
-  }
-  
-  
+header {
+	display: flex;
+	align-items: center;
+	justify-content: space-between;
+	padding: 20px;
+	background-color: #F5F5F5;
+	box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+.logo img {
+	height: 50px;
+}
+
+nav {
+	flex-grow: 1;
+	margin: 0 20px;
+}
+
+nav ul {
+	display: flex;
+	list-style: none;
+	margin: 0;
+	padding: 0;
+}
+
+nav ul li {
+	margin: 0 10px;
+}
+
+nav ul li a {
+	color: #333;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+nav ul li a:hover {
+	color: #000;
+}
+
+.user-login {
+	display: flex;
+	align-items: center;
+}
+
+.user-login .icon-user {
+	width: 20px;
+	height: 20px;
+	background-image: url('icone-utilisateur.png');
+	background-size: cover;
+	margin-right: 10px;
+}
+
+.user-login a {
+	color: #333;
+	text-decoration: none;
+	font-weight: bold;
+	font-size: 16px;
+}
+
+.user-login a:hover {
+	color: #000;
+}
