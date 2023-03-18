@@ -1,13 +1,11 @@
-
-
-
-  var mymap = L.map('mapid').setView([48.8566, 2.3522], 13);
+var mymap = L.map('mapid').setView([48.8566, 2.3522], 13);
 
 L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 	attribution: 'Map data &copy; <a href="https://www.openstreetmap.org/">OpenStreetMap</a> contributors',
 	maxZoom: 18,
 }).addTo(mymap);
 
+//géolocalisation
 var marker = L.marker([0, 0]).addTo(mymap);
 
 function onLocationFound(e) {
@@ -24,3 +22,64 @@ mymap.on('locationfound', onLocationFound);
 mymap.on('locationerror', onLocationError);
 
 mymap.locate({setView: true, maxZoom: 16});
+var routeLayer = L.layerGroup().addTo(mymap);
+
+//recherche d'itinéraire
+$(document).ready(function() {
+	$('#journey-form').submit(function(event) {
+		event.preventDefault();
+		
+		//parametre de depart et d'arrivée a spécifier
+		var url = 'https://api.navitia.io/v1/coverage/sandbox/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736&';
+
+		$.ajax({
+			url: url,
+			headers: {
+				'Authorization': '3b036afe-0110-4202-b9ed-99718476c2e0' 
+			},
+			success: function(data) {
+				var results = '';
+				for (var i = 0; i < data.journeys.length; i++) {
+					var journey = data.journeys[i];
+					results += '<h3>Itinéraire ' + (i+1) + '</h3>';
+					results += '<ul>';
+					for (var j = 0; j < journey.sections.length; j++) {
+						var section = journey.sections[j];
+						results += '<li>' + 'Durée : ' + section.duration + '</li>';
+
+			// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
+			if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
+
+
+
+                        for(var y = 0; y < section.geojson.coordinates.length-1; y++){
+                          /**ok pour parcourir toutes les coordonnées lat long on fait apparaitre tous les chemins possibles*/
+                             
+                     
+                             // Ajoutez un cercle avec un rayon de 0 pour dessiner le point
+                                L.circleMarker([section.geojson.coordinates[y][1], section.geojson.coordinates[y][0]], {radius: 0}).addTo(mymap);
+
+                            // Ajustez la vue de la carte pour afficher le point
+                            mymap.setView([section.geojson.coordinates[y][1], section.geojson.coordinates[y][0]], 15);
+                    }
+                    
+					}
+                }
+                 
+
+					results += '</ul>';
+				}
+				$('#results').html(results);
+			}
+		});
+	});
+});
+
+
+
+
+//récuper la destination recherché
+function recupDestination() {
+	var valeur = document.getElementById("destination").value;
+  }
+
