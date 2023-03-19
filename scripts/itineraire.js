@@ -22,9 +22,11 @@ mymap.on('locationfound', onLocationFound);
 mymap.on('locationerror', onLocationError);
 
 mymap.locate({setView: true, maxZoom: 16});
-var routeLayer = L.layerGroup().addTo(mymap);
 
-//recherche d'itinéraire
+//fin géoloca
+
+
+//recherche et affichage d'itinéraire avec des coordoonnes départ et arrivée après avoir appuyer sur le bouton 'c est parti'
 $(document).ready(function() {
 	$('#journey-form').submit(function(event) {
 		event.preventDefault();
@@ -43,30 +45,18 @@ $(document).ready(function() {
 					var journey = data.journeys[i];
 					results += '<h3>Itinéraire ' + (i+1) + '</h3>';
 					results += '<ul>';
-					for (var j = 0; j < journey.sections.length; j++) {
+					for (var j = 0; j < journey.sections.length; j++) { //parcour tous les trajets possibles
 						var section = journey.sections[j];
 						results += '<li>' + 'Durée : ' + section.duration + '</li>';
 
-			// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
-			if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
-
-
-
-                        for(var y = 0; y < section.geojson.coordinates.length-1; y++){
-                          /**ok pour parcourir toutes les coordonnées lat long on fait apparaitre tous les chemins possibles*/
-                             
-                     
-                             // Ajoutez un cercle avec un rayon de 0 pour dessiner le point
-                                L.circleMarker([section.geojson.coordinates[y][1], section.geojson.coordinates[y][0]], {radius: 0}).addTo(mymap);
-
-                            // Ajustez la vue de la carte pour afficher le point
-                            mymap.setView([section.geojson.coordinates[y][1], section.geojson.coordinates[y][0]], 15);
-                    }
-                    
-					}
-                }
-                 
-
+						// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
+						if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
+      					/**on fait apparaitre tous les chemins possibles*/
+                    		for(var y = 0; y < section.geojson.coordinates.length-1; y++){
+                      			afficheItineraire(section.geojson.coordinates[y][1], section.geojson.coordinates[y][0]);
+                   	 		}
+						}
+               		}
 					results += '</ul>';
 				}
 				$('#results').html(results);
@@ -76,10 +66,14 @@ $(document).ready(function() {
 });
 
 
-
+function afficheItineraire(lat, long){
+    // Ajoutez un cercle avec un rayon de 0 pour dessiner le point
+	L.circleMarker([lat, long], {radius: 0}).addTo(mymap);
+	// Ajustez la vue de la carte pour afficher le point
+	mymap.setView([lat, long], 15);
+}
 
 //récuper la destination recherché
 function recupDestination() {
 	var valeur = document.getElementById("destination").value;
   }
-
