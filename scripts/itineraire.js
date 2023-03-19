@@ -23,6 +23,13 @@ mymap.on('locationerror', onLocationError);
 
 mymap.locate({setView: true, maxZoom: 16});
 
+L.control.locate({
+    position: "topleft",
+    strings: {
+        title: "Ma position"
+    },
+}).addTo(mymap);
+
 //fin géoloca
 
 
