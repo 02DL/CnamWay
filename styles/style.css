@@ -67,10 +67,12 @@ nav ul li a:hover {
   background-color: lightgray;
 }
 
+#alerte {
+	background-color: rgb(202, 176, 176);
+}
 
-  
-
-
-  form {
+form {
 	margin: 0 auto;
-  }
+}
+
+
