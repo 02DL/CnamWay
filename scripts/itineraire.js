@@ -89,7 +89,7 @@ function recupDestination() {
 
 fetch('https://api.navitia.io/v1/coverage/fr-idf/physical_modes/physical_mode:Metro/lines', {
   headers: {
-    Authorization: 'YOUR_API_KEY',
+    Authorization: '3b036afe-0110-4202-b9ed-99718476c2e0',
   },
 })
   .then(response => response.json())
