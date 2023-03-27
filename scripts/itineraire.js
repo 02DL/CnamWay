@@ -84,3 +84,8 @@ function afficheItineraire(lat, long){
 function recupDestination() {
 	var valeur = document.getElementById("destination").value;
   }
+
+  fetch('https://api.navitia.io/v1/coverage/fr-idf/physical_modes/physical_mode:Metro/lines')
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
