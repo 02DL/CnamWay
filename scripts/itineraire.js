@@ -39,12 +39,12 @@ $(document).ready(function() {
 		event.preventDefault();
 		
 		//parametre de depart et d'arrivée a spécifier
-		var url = 'https://api.navitia.io/v1/coverage/sandbox/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736&';
+		var url = 'https://api.navitia.io/v1/coverage/fr-idf/physical_modes/physical_mode:Bus/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736';
 
 		$.ajax({
 			url: url,
 			headers: {
-				'Authorization': '3b036afe-0110-4202-b9ed-99718476c2e0' 
+				'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' 
 			},
 			success: function(data) {
 				var results = '';
