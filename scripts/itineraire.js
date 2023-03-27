@@ -39,7 +39,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		
 		//parametre de depart et d'arrivée a spécifier
-		var url = 'https://api.navitia.io/v1/coverage/fr-idf/physical_modes/physical_mode:Metro/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736';
+		var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736';
 
 		$.ajax({
 			url: url,
