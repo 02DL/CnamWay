@@ -85,7 +85,14 @@ function recupDestination() {
 	var valeur = document.getElementById("destination").value;
   }
 
-  fetch('https://api.navitia.io/v1/coverage/fr-idf/physical_modes/physical_mode:Metro/lines')
+//test api
+
+fetch('https://api.navitia.io/v1/coverage/fr-idf/physical_modes/physical_mode:Metro/lines', {
+  headers: {
+    Authorization: 'YOUR_API_KEY',
+  },
+})
   .then(response => response.json())
   .then(data => console.log(data))
   .catch(error => console.error(error));
+
