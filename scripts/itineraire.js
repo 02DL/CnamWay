@@ -39,7 +39,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		
 		//parametre de depart et d'arrivée a spécifier
-		var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736';
+		var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.36953%3B48.86398&to=2.36039%3B48.86635&';
 
 		$.ajax({
 			url: url,
@@ -50,37 +50,56 @@ $(document).ready(function() {
 				var results = '';
 				for (var i = 0; i < data.journeys.length; i++) {
 					var journey = data.journeys[i];
-					results += '<h3>Itinéraire ' + (i+1) + '</h3>';
+					results += '<h3>Itinéraire ' + (i) + '</h3>';
 					results += '<ul>';
-					for (var j = 0; j < journey.sections.length; j++) { //parcour tous les trajets possibles
+					for (var j = 0; j < journey.sections.length; j++) { //parcour tous les sections d'un trajet possible
 						var section = journey.sections[j];
 						results += '<li>' + 'Durée : ' + section.duration + '</li>';
-
+						
 						// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
 						if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
-      					/**on fait apparaitre tous les chemins possibles*/
-                    		for(var y = 0; y < section.geojson.coordinates.length-1; y++){
-                      			afficheItineraire(section.geojson.coordinates[y][1], section.geojson.coordinates[y][0]);
-                   	 		}
+							//afficher le pt de départ et d'arrivée
+							
+							if(j == 0 ) 
+								afficheMarqueur(section.geojson.coordinates[0][1], section.geojson.coordinates[0][0]);
+							if(j == journey.sections.length-1)	
+							afficheMarqueur(section.geojson.coordinates[section.geojson.coordinates.length-1][1], section.geojson.coordinates[section.geojson.coordinates.length-1][0]);
+							
+							//inverser les coordonnées récupéré de l'api pr l'afficher correctement utilisant polyline
+							var poly = section.geojson.coordinates;
+							poly.map((item)=>{
+								item.reverse()
+							 })
+
+							var polyline = L.polyline(section.geojson.coordinates, {color: 'red'}).addTo(mymap);
+							
 						}
-               		}
+               		}	
 					results += '</ul>';
 				}
+			
 				$('#results').html(results);
 			}
 		});
 	});
 });
 
+//Affichage d'une marqueur à une coordoonnée donnée
+function afficheMarqueur(lat,long){
+	var marker = L.marker([lat, long]).addTo(mymap);
+}
 
+
+//Permet d'afficher un point par une coordonnée donnée
 function afficheItineraire(lat, long){
     // Ajoutez un cercle avec un rayon de 0 pour dessiner le point
 	L.circleMarker([lat, long], {radius: 0}).addTo(mymap);
 	// Ajustez la vue de la carte pour afficher le point
 	mymap.setView([lat, long], 15);
+
 }
 
-//récuper la destination recherché
+//récupere la destination recherché
 function recupDestination() {
 	var valeur = document.getElementById("destination").value;
   }
