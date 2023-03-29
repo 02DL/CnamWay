@@ -115,8 +115,8 @@ $.ajax({
         });
 
         // Initialisation de la carte Leaflet et ajout de la couche d'itinéraire
-        var map = L.map('map').setView([48.851702, 2.348796], 13);
-        routeLayer.addTo(map);
+        //var map = L.map('map').setView([48.851702, 2.348796], 13);
+        routeLayer.addTo(mymap);
     }
 });
 
