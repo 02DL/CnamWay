@@ -115,3 +115,27 @@ fetch('https://api.navitia.io/v1/coverage/fr-idf/physical_modes/physical_mode:Bu
   .then(data => console.log(data))
   .catch(error => console.error(error));
 
+  // Récupération des données GeoJSON via l'API Navitia
+$.ajax({
+    url: 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736',
+    dataType: 'json',
+    headers: {
+        'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' // Clé d'API Navitia
+    },
+    success: function(data) {
+        // Conversion des données GeoJSON en une couche Leaflet
+        var routeLayer = L.geoJSON(data.journeys[0].sections[0].geojson, {
+            style: function(feature) {
+                return {
+                    color: '#3388ff', // Couleur de la ligne d'itinéraire
+                    weight: 5 // Épaisseur de la ligne d'itinéraire
+                };
+            }
+        });
+
+        // Initialisation de la carte Leaflet et ajout de la couche d'itinéraire
+        //var map = L.map('map').setView([48.851702, 2.348796], 13);
+        routeLayer.addTo(mymap);
+    }
+});
+
