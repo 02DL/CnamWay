@@ -55,25 +55,25 @@ $(document).ready(function() {
 					for (var j = 0; j < journey.sections.length; j++) { //parcour tous les sections d'un trajet possible
 						var section = journey.sections[j];
 						results += '<li>' + 'Durée : ' + section.duration + '</li>';
-						
+					
+							
 						// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
 						if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
 							//afficher le pt de départ et d'arrivée
 							
 							if(j == 0 ) 
-								afficheMarqueur(section.geojson.coordinates[0][1], section.geojson.coordinates[0][0]);
+								afficheMarqueur(section.geojson.coordinates[0][1], section.geojson.coordinates[0][0],'Départ');
 							if(j == journey.sections.length-1)	
-							afficheMarqueur(section.geojson.coordinates[section.geojson.coordinates.length-1][1], section.geojson.coordinates[section.geojson.coordinates.length-1][0]);
-							
-							//inverser les coordonnées récupéré de l'api pr l'afficher correctement utilisant polyline
+							afficheMarqueur(section.geojson.coordinates[section.geojson.coordinates.length-1][1], section.geojson.coordinates[section.geojson.coordinates.length-1][0],'Arrivée');
+						}	
+						
+						//inverser les coordonnées récupéré de l'api pr l'afficher correctement utilisant polyline
 							var poly = section.geojson.coordinates;
 							poly.map((item)=>{
 								item.reverse()
 							 })
 
-							var polyline = L.polyline(section.geojson.coordinates, {color: 'red'}).addTo(mymap);
-							
-						}
+							var polyline = L.polyline(section.geojson.coordinates, {color: colors[i]}).addTo(mymap);
                		}	
 					results += '</ul>';
 				}
@@ -84,9 +84,10 @@ $(document).ready(function() {
 	});
 });
 
+var colors = ['red','blue','orange','green','pink'];
 //Affichage d'une marqueur à une coordoonnée donnée
-function afficheMarqueur(lat,long){
-	var marker = L.marker([lat, long]).addTo(mymap);
+function afficheMarqueur(lat,long, popupContent){
+	var marker = L.marker([lat, long]).addTo(mymap).bindPopup(popupContent);
 }
 
 
