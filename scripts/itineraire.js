@@ -12,7 +12,26 @@ function onLocationFound(e) {
 	var radius = e.accuracy / 2;
 	marker.setLatLng(e.latlng).bindPopup("Vous êtes dans un rayon de " + radius + " mètres de ce point").openPopup();
 	L.circle(e.latlng, radius).addTo(mymap);
+
+	//affiche les transports qui sont autour de l'utilisateur
+	var url = 'https://api.navitia.io/v1/coverage/fr-idf/coord/'+e.lon+'%3B'+e.lat+'/stop_areas?distance=500&';
+
+	$.ajax({
+		url: url,
+		headers: {
+			'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' 
+		},
+		success: function(data) {
+			for (var i = 0; i < data.stop_areas.length; i++) {
+				afficheMarqueur(data.stop_areas[i].coord.lat,data.stop_areas[i].coord.lon,data.stop_areas[i].name);
+			
+			}
+		}
+	});
+
 }
+
+
 
 function onLocationError(e) {
 	alert(e.message);
@@ -64,7 +83,7 @@ $(document).ready(function() {
 							if(j == 0 ) 
 								afficheMarqueur(section.geojson.coordinates[0][1], section.geojson.coordinates[0][0],'Départ');
 							if(j == journey.sections.length-1)	
-							afficheMarqueur(section.geojson.coordinates[section.geojson.coordinates.length-1][1], section.geojson.coordinates[section.geojson.coordinates.length-1][0],'Arrivée');
+								afficheMarqueur(section.geojson.coordinates[section.geojson.coordinates.length-1][1], section.geojson.coordinates[section.geojson.coordinates.length-1][0],'Arrivée');
 
 							//inverser les coordonnées récupéré de l'api pr l'afficher correctement utilisant polyline
 							var poly = section.geojson.coordinates;
@@ -94,9 +113,9 @@ function afficheMarqueur(lat,long, popupContent){
 
 
 //Permet d'afficher un point par une coordonnée donnée
-function afficheItineraire(lat, long){
+function affichePoint(lat, long, popupContent){
     // Ajoutez un cercle avec un rayon de 0 pour dessiner le point
-	L.circleMarker([lat, long], {radius: 0}).addTo(mymap);
+	L.circleMarker([lat, long], {radius: 0}).addTo(mymap).bindPopup(popupContent);
 	// Ajustez la vue de la carte pour afficher le point
 	mymap.setView([lat, long], 15);
 
@@ -106,4 +125,7 @@ function afficheItineraire(lat, long){
 function recupDestination() {
 	var valeur = document.getElementById("destination").value;
   }
+
+
+
 
