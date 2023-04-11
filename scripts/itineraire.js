@@ -90,8 +90,11 @@ $(document).ready(function() {
 							poly.map((item)=>{
 								item.reverse()
 							 })
-
-							var polyline = L.polyline(section.geojson.coordinates, {color: colors[i]}).addTo(mymap);
+							 if (section.type == "public_transport") {
+								afficheItineraire(section.geojson.coordinates, colors[i],'false');
+							 }else{
+								afficheItineraire(section.geojson.coordinates, colors[i],'true');
+							 }
 						}	
 						
 							
@@ -126,6 +129,21 @@ function recupDestination() {
 	var valeur = document.getElementById("destination").value;
   }
 
+
+function afficheItineraire(coord,color,dash){
+	var polyline;
+	if(dash == 'true'){
+		polyline = L.polyline(coord, {
+			color: color,
+			dashArray: "10,10"
+		})
+	}else{
+		polyline = L.polyline(coord, {
+			color: color,
+		})
+	}
+	polyline.addTo(mymap);
+}
 
 
 //test api
