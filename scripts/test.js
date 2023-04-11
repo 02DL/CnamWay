@@ -43,6 +43,10 @@ $.ajax({
             }
           }).addTo(mymap);
         }
+        var poly = section.geojson.coordinates;
+			poly.map((item)=>{
+			item.reverse()
+		})
         
         // Affichage des segments de marche à pied
         if (section.type == "street_network") {
