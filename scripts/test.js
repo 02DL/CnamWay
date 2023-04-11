@@ -81,7 +81,7 @@ $(document).ready(function() {
                       }).addTo(mymap);
                     }
                   }
-						}	
+				}	
 						
 	
 			}
@@ -89,26 +89,9 @@ $(document).ready(function() {
 	});
 });
 
-var colors = ['red','blue','orange','green','pink'];
-//Affichage d'une marqueur à une coordoonnée donnée
-function afficheMarqueur(lat,long, popupContent){
-	var marker = L.marker([lat, long]).addTo(mymap).bindPopup(popupContent);
-}
 
 
-//Permet d'afficher un point par une coordonnée donnée
-function afficheItineraire(lat, long){
-    // Ajoutez un cercle avec un rayon de 0 pour dessiner le point
-	L.circleMarker([lat, long], {radius: 0}).addTo(mymap);
-	// Ajustez la vue de la carte pour afficher le point
-	mymap.setView([lat, long], 15);
 
-}
-
-//récupere la destination recherché
-function recupDestination() {
-	var valeur = document.getElementById("destination").value;
-  }
 
 
 
