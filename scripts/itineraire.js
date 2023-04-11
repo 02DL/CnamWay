@@ -51,12 +51,25 @@ $(document).ready(function() {
 				for (var i = 0; i < data.journeys.length; i++) {
 					var journey = data.journeys[i];
 					results += '<h3>Itinéraire ' + (i) + '</h3>';
+
+
+                    results += '<li>' + 'Durée : ' + journey.duration + '</li>';
+                    results += '<li>' + 'Coût : ' + '</li>';
+
+
+                    // Extraire l'heure d'arrivée au format HH:mm à partir de la chaîne de caractères "arrival_date_time"
+                                             var arrivalTime = journey.arrival_date_time.slice(9, 14);
+                                             var hours = arrivalTime.slice(0, 2);
+                                             var minutes = arrivalTime.slice(2, 4);
+                                             var formattedArrivalTime = hours + ':' + minutes;
+                                             results += '<li>' + 'Heure d\'arrivée : ' + formattedArrivalTime + '</li>';
 					results += '<ul>';
-					for (var j = 0; j < journey.sections.length; j++) { //parcour tous les sections d'un trajet possible
-						var section = journey.sections[j];
-						results += '<li>' + 'Durée : ' + section.duration + '</li>';
-					
-							
+
+
+					for (var j = 0; j < journey.sections.length; j++) {
+
+                        var section = journey.sections[j];
+
 						// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
 						if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
 							//afficher le pt de départ et d'arrivée
