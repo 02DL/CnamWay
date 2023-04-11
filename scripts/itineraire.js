@@ -39,7 +39,7 @@ $(document).ready(function() {
 		event.preventDefault();
 		
 		//parametre de depart et d'arrivée a spécifier
-		var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.36953%3B48.86398&to=2.36039%3B48.86635&';
+		var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.356199%3B48.865871&to=2.329358%3B48.883682&';
 
 		$.ajax({
 			url: url,
