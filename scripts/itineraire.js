@@ -108,7 +108,7 @@ $(document).ready(function() {
 									var lat = section.stop_date_times[i].stop_point.coord.lat;
 									var lon = section.stop_date_times[i].stop_point.coord.lon;
 									var name = section.stop_date_times[i].stop_point.name;
-									affichePoint(lat,lon,name);
+									//affichePoint(lat,lon,name);
 								}
 								afficheItineraire(section.geojson.coordinates, colors[i],'false');
 							 }else{
