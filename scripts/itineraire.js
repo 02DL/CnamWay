@@ -128,4 +128,23 @@ function recupDestination() {
 
 
 
+//test api
+
+fetch('https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.356199%3B48.865871&to=2.329358%3B48.883682&', {
+  headers: {
+    Authorization: '78d327c8-89d1-4f9d-b3eb-db1d9be8c517',
+  },
+})
+  .then(response => response.json())
+  .then(data => console.log(data))
+  .catch(error => console.error(error));
+
+  // Récupération des données GeoJSON via l'API Navitia
+$.ajax({
+    url: 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736',
+    dataType: 'json',
+    headers: {
+        'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' // Clé d'API Navitia
+    }
+});
 
