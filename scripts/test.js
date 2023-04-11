@@ -28,28 +28,39 @@ $.ajax({
       // Parcours des étapes de l'itinéraire
       for (var j = 0; j < journey.sections.length; j++) {
         var section = journey.sections[j];
-        
-        // Affichage des segments de transport en commun
-        if (section.type == "public_transport") {
-          var line = section.display_informations.code;
-          var color = section.display_informations.color;
-          
-          // Création d'une couche pour la ligne de transport en commun
-          L.geoJSON(section.geojson, {
-            style: function(feature) {
-              return {
-                color: color
-              };
+
+
+        if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
+            // Affichage des segments de transport en commun
+            if (section.type == "public_transport") {
+                var line = section.display_informations.code;
+                var color = section.display_informations.color;
+  
+            
+            
+                // Création d'une couche pour la ligne de transport en commun
+                L.geoJSON(section.geojson, {
+                style: function(feature) {
+                    return {
+                    color: color
+                    };
+                }
+                }).addTo(mymap);
             }
-          }).addTo(mymap);
+            var poly = section.geojson.coordinates;
+                poly.map((item)=>{
+                item.reverse()
+            })
+          
+            // Affichage des segments de marche à pied
+            if (section.mode == "walking") {
+            // Création d'une couche pour le trajet à pied
+            L.polyline(section.geojson.coordinates, {
+              dashArray: "5,5"
+            }).addTo(mymap);
         }
         
-        // Affichage des segments de marche à pied
-        if (section.type == "street_network") {
-          // Création d'une couche pour le trajet à pied
-          L.polyline(section.geojson.coordinates, {
-            dashArray: "10,10"
-          }).addTo(mymap);
+        
         }
       }
     }
