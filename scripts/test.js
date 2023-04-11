@@ -53,10 +53,10 @@ $.ajax({
             })
           
             // Affichage des segments de marche à pied
-            if (section.type == "street_network") {
+            if (section.mode == "walking") {
             // Création d'une couche pour le trajet à pied
             L.polyline(section.geojson.coordinates, {
-              dashArray: "10,10"
+              dashArray: "1,1"
             }).addTo(mymap);
         }
         
