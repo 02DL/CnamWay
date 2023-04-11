@@ -104,13 +104,13 @@ $(document).ready(function() {
 								item.reverse()
 							 })
 							 if (section.type == "public_transport") {
-								afficheItineraire(section.geojson.coordinates, colors[i],'false');
 								for(var i = 0; i<section.stop_date_times.length; i++){
 									var lat = section.stop_date_times[i].stop_point.coord.lat;
 									var lon = section.stop_date_times[i].stop_point.coord.lon;
 									var name = section.stop_date_times[i].stop_point.name;
 									affichePoint(lat,lon,name);
 								}
+								afficheItineraire(section.geojson.coordinates, colors[i],'false');
 							 }else{
 								afficheItineraire(section.geojson.coordinates, colors[i],'true');
 							 }
