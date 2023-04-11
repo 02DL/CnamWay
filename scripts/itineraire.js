@@ -65,15 +65,17 @@ $(document).ready(function() {
 								afficheMarqueur(section.geojson.coordinates[0][1], section.geojson.coordinates[0][0],'Départ');
 							if(j == journey.sections.length-1)	
 							afficheMarqueur(section.geojson.coordinates[section.geojson.coordinates.length-1][1], section.geojson.coordinates[section.geojson.coordinates.length-1][0],'Arrivée');
-						}	
-						
-						//inverser les coordonnées récupéré de l'api pr l'afficher correctement utilisant polyline
+
+							//inverser les coordonnées récupéré de l'api pr l'afficher correctement utilisant polyline
 							var poly = section.geojson.coordinates;
 							poly.map((item)=>{
 								item.reverse()
 							 })
 
 							var polyline = L.polyline(section.geojson.coordinates, {color: colors[i]}).addTo(mymap);
+						}	
+						
+							
                		}	
 					results += '</ul>';
 				}
