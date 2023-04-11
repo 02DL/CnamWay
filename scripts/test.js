@@ -14,7 +14,9 @@ var apiKey = "78d327c8-89d1-4f9d-b3eb-db1d9be8c517";
 $.ajax({
     url: apiUrl,
     type: "GET",
-    data: { api_key: apiKey },
+    headers: {
+        'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' 
+    },
     dataType: "json",
     success: function(data) {
         var journeys = data.journeys;
