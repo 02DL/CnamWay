@@ -56,7 +56,7 @@ $.ajax({
             if (section.mode == "walking") {
             // Création d'une couche pour le trajet à pied
             L.polyline(section.geojson.coordinates, {
-              dashArray: "1,1"
+              dashArray: "5,5"
             }).addTo(mymap);
         }
         
