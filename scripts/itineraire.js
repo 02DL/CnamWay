@@ -112,6 +112,16 @@ $(document).ready(function() {
 							 }else{
 								afficheItineraire(section.geojson.coordinates, colors[i],'true');
 							 }
+							 if(section.type == "public_transport"){
+								for(var i = 0; i<section.stop_date_times.length; i++){
+									var lat = section.stop_date_times[i].stop_point.coord.lat;
+									var lon = section.stop_date_times[i].stop_point.coord.lon;
+									var name = section.stop_date_times[i].stop_point.name;
+									affichePoint(lat,lon,name);
+								}
+							 }
+							 
+							 
 						}	
 						
 							
