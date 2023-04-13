@@ -73,7 +73,11 @@ $(document).ready(function() {
 
 
                     results += '<li>' + 'Durée : ' + journey.duration + '</li>';
-                    results += '<li>' + 'Coût : ' + '</li>';
+                    if (journey.fare.total != null) {
+                     results += '<li>' + 'Coût : ' + journey.fare.total.value + '</li>';
+
+                    } else results += '<li>' + 'Coût : ' + "0" + '</li>'
+
 
 
                     // Extraire l'heure d'arrivée au format HH:mm à partir de la chaîne de caractères "arrival_date_time"
