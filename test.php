@@ -26,6 +26,7 @@ if (!$resultat) {
 }
 
 // récupération des données
+echo "test";
 echo "<table>";
 echo "<tr><th>idReseau</th><th>nomReseau</th></tr>";
 while ($ligne = mysqli_fetch_array($resultat)) {
