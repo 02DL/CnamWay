@@ -15,7 +15,7 @@ if (!$connexion) {
 }
 
 // requête SQL pour extraire des données
-$sql = "SELECT * FROM Reseau";
+$sql = "SELECT * FROM reseau";
 
 // exécution de la requête SQL
 $resultat = mysqli_query($connexion, $sql);
@@ -26,9 +26,12 @@ if (!$resultat) {
 }
 
 // récupération des données
+echo "<table>";
+echo "<tr><th>idReseau</th><th>nomReseau</th></tr>";
 while ($ligne = mysqli_fetch_array($resultat)) {
-    echo $ligne["id"] . " " . $ligne["nom"] . "<br>";
+    echo "<tr><td>" . $ligne["idReseau"] . "</td><td>" . $ligne["nomReseau"] . "</td></tr>";
 }
+echo "</table>";
 
 // fermeture de la connexion à la base de données
 mysqli_close($connexion);
