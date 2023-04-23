@@ -4,7 +4,7 @@
 $serveur = "localhost";
 $utilisateur = "admin";
 $mot_de_passe = "admin";
-$nom_de_la_base_de_donnees = "votre_nom_de_base_de_donnees";
+$nom_de_la_base_de_donnees = "cnamway";
 
 // connexion à la base de données
 $connexion = mysqli_connect($serveur, $utilisateur, $mot_de_passe, $nom_de_la_base_de_donnees);
@@ -15,7 +15,7 @@ if (!$connexion) {
 }
 
 // requête SQL pour extraire des données
-$sql = "SELECT * FROM ma_table";
+$sql = "SELECT * FROM Reseau";
 
 // exécution de la requête SQL
 $resultat = mysqli_query($connexion, $sql);
@@ -27,7 +27,7 @@ if (!$resultat) {
 
 // récupération des données
 while ($ligne = mysqli_fetch_array($resultat)) {
-    echo $ligne["nom"] . " " . $ligne["prenom"] . "<br>";
+    echo $ligne["id"] . " " . $ligne["nom"] . "<br>";
 }
 
 // fermeture de la connexion à la base de données
