@@ -13,8 +13,8 @@ function onLocationFound(e) {
 	marker.setLatLng(e.latlng).bindPopup("Vous êtes dans un rayon de " + radius + " mètres de ce point").openPopup();
 	L.circle(e.latlng, radius).addTo(mymap);
 
-	//affiche les transports qui sont autour de l'utilisateur
-	var url = 'https://api.navitia.io/v1/coverage/fr-idf/coord/'+e.lon+'%3B'+e.lat+'/stop_areas?distance=500&';
+	//affiche les transports qui sont autour de l'utilisateur à un rayon de 500m
+	var url = 'https://api.navitia.io/v1/coverage/fr-idf/coord/'+e.latlng.lng+'%3B'+e.latlng.lat+'/stop_areas?distance=500&';
 
 	$.ajax({
 		url: url,
@@ -81,11 +81,11 @@ $(document).ready(function() {
 
 
                     // Extraire l'heure d'arrivée au format HH:mm à partir de la chaîne de caractères "arrival_date_time"
-                                             var arrivalTime = journey.arrival_date_time.slice(9, 14);
-                                             var hours = arrivalTime.slice(0, 2);
-                                             var minutes = arrivalTime.slice(2, 4);
-                                             var formattedArrivalTime = hours + ':' + minutes;
-                                             results += '<li>' + 'Heure d\'arrivée : ' + formattedArrivalTime + '</li>';
+                    var arrivalTime = journey.arrival_date_time.slice(9, 14);
+                    var hours = arrivalTime.slice(0, 2);
+                    var minutes = arrivalTime.slice(2, 4);
+                    var formattedArrivalTime = hours + ':' + minutes;
+                    results += '<li>' + 'Heure d\'arrivée : ' + formattedArrivalTime + '</li>';
 					results += '<ul>';
 
 
@@ -171,25 +171,3 @@ function afficheItineraire(coord,color,dash){
 	}
 	polyline.addTo(mymap);
 }
-
-
-//test api
-
-fetch('https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.356199%3B48.865871&to=2.329358%3B48.883682&', {
-  headers: {
-    Authorization: '78d327c8-89d1-4f9d-b3eb-db1d9be8c517',
-  },
-})
-  .then(response => response.json())
-  .then(data => console.log(data))
-  .catch(error => console.error(error));
-
-  // Récupération des données GeoJSON via l'API Navitia
-$.ajax({
-    url: 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.3749036%3B48.8467927&to=2.2922926%3B48.8583736',
-    dataType: 'json',
-    headers: {
-        'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' // Clé d'API Navitia
-    }
-});
-

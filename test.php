@@ -5,7 +5,7 @@ ini_set('display_startup_errors', 1);
 error_reporting(E_ALL);
 
 // informations de connexion à la base de données
-$serveur = "localhost";
+$serveur = "192.168.137.1";
 $utilisateur = "admin";
 $mot_de_passe = "admin";
 $nom_de_la_base_de_donnees = "cnamway";
