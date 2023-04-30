@@ -26,6 +26,9 @@
       <div class="logo">
         <img src="Images/logo.png" alt="Logo">
       </div>
+
+
+  
       <nav>
         <ul>
           <li><a href="index.php?c=home">Accueil</a></li>
@@ -33,8 +36,26 @@
           <li><a href="index.php?c=horaire">Horaires</a></li>
         </ul>
       </nav>
-      <div class="user-login">
+     
+  
+
+
+    <?php
+if (connected()) {
+?>
+ <div class="user-login">
+        <span class="icon-user"></span>
+        <a href="index.php?c=account/user">Gérer mon compte</a>
+      </div>
+<?php
+} else {
+?>
+    <div class="user-login">
         <span class="icon-user"></span>
         <a href="index.php?c=login">Se connecter</a>
       </div>
-    </header>
+<?php
+}
+?>
+
+</header>

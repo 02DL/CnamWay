@@ -1,7 +1,7 @@
 <?php
 
 return [
-   // 'dsn' => 'sqlite:database.sqlite',
+    'dsn' => 'mysql:host=localhost;dbname=cnamway',
     'default' => 'home'
 ];
 

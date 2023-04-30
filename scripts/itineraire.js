@@ -18,23 +18,13 @@ function onLocationFound(e) {
 
 	$.ajax({
 		url: url,
-		headers: {
-			'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' 
-		},
+		headers: {'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517'},
 		success: function(data) {
 			for (var i = 0; i < data.stop_areas.length; i++) {
 				afficheMarqueur(data.stop_areas[i].coord.lat,data.stop_areas[i].coord.lon,data.stop_areas[i].name);
-			
 			}
 		}
 	});
-
-}
-
-
-
-function onLocationError(e) {
-	alert(e.message);
 }
 
 mymap.on('locationfound', onLocationFound);
@@ -48,7 +38,6 @@ L.control.locate({
         title: "Ma position"
     },
 }).addTo(mymap);
-
 //fin géoloca
 
 
@@ -56,27 +45,30 @@ L.control.locate({
 $(document).ready(function() {
 	$('#journey-form').submit(function(event) {
 		event.preventDefault();
-		
+
 		//parametre de depart et d'arrivée a spécifier
-		var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from=2.356199%3B48.865871&to=2.329358%3B48.883682&';
+		var lngD = 2.356199;
+		var latD = 48.865871;
+
+		var lngA = 2.329358;
+		var latA = 48.883682;
+	
+		var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from='+lngD+'%3B'+latD+'&to='+lngA+'%3B'+latA+'&';
 
 		$.ajax({
 			url: url,
-			headers: {
-				'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' 
-			},
+			headers: {'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' },
 			success: function(data) {
 				var results = '';
 				for (var i = 0; i < data.journeys.length; i++) {
+
 					var journey = data.journeys[i];
 					results += '<h3>Itinéraire ' + (i) + '</h3>';
 
-
                     results += '<li>' + 'Durée : ' + journey.duration + '</li>';
                     if (journey.fare.total != null) {
-                     results += '<li>' + 'Coût : ' + journey.fare.total.value + '</li>';
-
-                    } else results += '<li>' + 'Coût : ' + "0" + '</li>'
+                    	results += '<li>' + 'Coût : ' + journey.fare.total.value + '</li>';
+                    } else results += '<li>' + 'Coût : ' + "0" + '</li>';
 
 
 
@@ -96,7 +88,6 @@ $(document).ready(function() {
 						// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
 						if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
 							//afficher le pt de départ et d'arrivée
-							
 							if(j == 0 ) 
 								afficheMarqueur(section.geojson.coordinates[0][1], section.geojson.coordinates[0][0],'Départ');
 							if(j == journey.sections.length-1)	
@@ -120,23 +111,21 @@ $(document).ready(function() {
 									affichePoint(lat,lon,name);
 								}
 							 }
-							 
-							 
-						}	
-						
-							
+						}		
                		}	
 					results += '</ul>';
 				}
-			
 				$('#results').html(results);
 			}
 		});
 	});
 });
 
+
 var colors = ['red','blue','orange','green','pink'];
-//Affichage d'une marqueur à une coordoonnée donnée
+//fonctions utiles
+
+//Affichage d'un marqueur à une coordoonnée donnée
 function afficheMarqueur(lat,long, popupContent){
 	var marker = L.marker([lat, long]).addTo(mymap).bindPopup(popupContent);
 }
@@ -144,20 +133,16 @@ function afficheMarqueur(lat,long, popupContent){
 
 //Permet d'afficher un point par une coordonnée donnée
 function affichePoint(lat, long, popupContent){
-    // Ajoutez un cercle avec un rayon de 0 pour dessiner le point
 	L.circleMarker([lat, long], 
 		{radius: 2, color: 'black',weight: 5,}
 	).addTo(mymap).bindPopup(popupContent);
-	// Ajustez la vue de la carte pour afficher le point
 	mymap.setView([lat, long], 12);
-
 }
 
-//récupere la destination recherché
+//récupere la destination recherché par l'utilisateur
 function recupDestination() {
 	var valeur = document.getElementById("destination").value;
   }
-
 
 function afficheItineraire(coord,color,dash){
 	var polyline;
@@ -172,4 +157,8 @@ function afficheItineraire(coord,color,dash){
 		})
 	}
 	polyline.addTo(mymap);
+}
+
+function onLocationError(e) {
+	alert(e.message);
 }
