@@ -145,9 +145,11 @@ function afficheMarqueur(lat,long, popupContent){
 //Permet d'afficher un point par une coordonnée donnée
 function affichePoint(lat, long, popupContent){
     // Ajoutez un cercle avec un rayon de 0 pour dessiner le point
-	L.circleMarker([lat, long], {radius: 0}).addTo(mymap).bindPopup(popupContent);
+	L.circleMarker([lat, long], 
+		{radius: 2, color: 'black',weight: 5,}
+	).addTo(mymap).bindPopup(popupContent);
 	// Ajustez la vue de la carte pour afficher le point
-	mymap.setView([lat, long], 15);
+	mymap.setView([lat, long], 12);
 
 }
 
