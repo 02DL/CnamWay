@@ -7,14 +7,18 @@ L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 //géolocalisation
 var marker = L.marker([0, 0]).addTo(mymap);
+var lonGeo;
+var latGeo;
 
 function onLocationFound(e) {
 	var radius = e.accuracy / 2;
 	marker.setLatLng(e.latlng).bindPopup("Vous êtes dans un rayon de " + radius + " mètres de ce point").openPopup();
 	L.circle(e.latlng, radius).addTo(mymap);
+	lonGeo = e.latlng.lng;
+	latGeo = e.latlng.lat;
 
 	//affiche les transports qui sont autour de l'utilisateur à un rayon de 500m
-	var url = 'https://api.navitia.io/v1/coverage/fr-idf/coord/'+e.latlng.lng+'%3B'+e.latlng.lat+'/stop_areas?distance=500&';
+	var url = 'https://api.navitia.io/v1/coverage/fr-idf/coord/'+lonGeo+'%3B'+latGeo+'/stop_areas?distance=500&';
 
 	$.ajax({
 		url: url,
@@ -40,84 +44,174 @@ L.control.locate({
 }).addTo(mymap);
 //fin géoloca
 
+// Autocomplétion
+
+const API_KEY = '78d327c8-89d1-4f9d-b3eb-db1d9be8c517';
+const API_URL = 'https://api.navitia.io/v1/coverage/fr-idf/places?q=';
+
+const addressInput = document.getElementById('destination');
+const addressList = document.getElementById('address-list');
+
+addressInput.addEventListener('input', () => {
+  const query = addressInput.value;
+  
+  // Si la barre de recherche est vide, on vide la liste des adresses proposées
+  if (!query) {
+    addressList.innerHTML = '';
+    return;
+  }
+  
+  // On récupère les adresses correspondantes à partir de l'API de Navitia
+  fetch(`${API_URL}${query}&count=10`, {
+    headers: {
+      Authorization: API_KEY
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    // On vide la liste des adresses proposées
+    addressList.innerHTML = '';
+    
+    // On affiche chaque adresse dans la liste
+    data.places.forEach(place => {
+      const li = document.createElement('li');
+      li.textContent = place.name;
+      li.addEventListener('click', () => {
+        addressInput.value = place.name;
+        addressList.innerHTML = '';
+      });
+      addressList.appendChild(li);
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
+});
+//fin auto complétion
+
+//test
+
+
+
+
+// adresse de destination pour tracer l'itinéraire
+var adresseDestination;
+var lonA ;
+var latA ;
+
+function chercherCoordonnéesDestination(){
+	recupDestination();
+
+	// On récupère les adresses correspondantes à partir de l'API de Navitia
+	fetch('https://api.navitia.io/v1/coverage/fr-idf/places?q='+ adresseDestination +'&count=1', {
+		headers: {
+		Authorization: API_KEY
+		}
+	})
+	.then(response => response.json())
+	.then(data => {
+		// On récupère les coordonnées de l'adresse
+		if(data.places[0].embedded_type == "address"){
+			lonA = data.places[0].address.coord.lon;
+			latA = data.places[0].address.coord.lat;
+		}
+		else{
+			lonA = data.places[0].stop_area.coord.lon;
+			latA = data.places[0].stop_area.coord.lat;
+			
+		}
+				//parametre de depart et d'arrivée a spécifier
+				//var lngD = 2.356199;
+				//var latD = 48.865871;
+		
+					console.log(lonA);
+					console.log(latA);
+		
+				var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from='+latGeo+'%3B'+lonGeo+'&to='+lonA+'%3B'+latA+'&';
+		
+				$.ajax({
+					url: url,
+					headers: {'Authorization': API_KEY },
+					success: function(data) {
+						var results = '';
+						for (var i = 0; i < data.journeys.length; i++) {
+		
+							var journey = data.journeys[i];
+							results += '<h3>Itinéraire ' + (i) + '</h3>';
+		
+							results += '<li>' + 'Durée : ' + journey.duration + '</li>';
+							if (journey.fare.total != null) {
+								results += '<li>' + 'Coût : ' + journey.fare.total.value + '</li>';
+							} else results += '<li>' + 'Coût : ' + "0" + '</li>';
+		
+		
+		
+							// Extraire l'heure d'arrivée au format HH:mm à partir de la chaîne de caractères "arrival_date_time"
+							var arrivalTime = journey.arrival_date_time.slice(9, 14);
+							var hours = arrivalTime.slice(0, 2);
+							var minutes = arrivalTime.slice(2, 4);
+							var formattedArrivalTime = hours + ':' + minutes;
+							results += '<li>' + 'Heure d\'arrivée : ' + formattedArrivalTime + '</li>';
+							results += '<ul>';
+		
+		
+							for (var j = 0; j < journey.sections.length; j++) {
+		
+								var section = journey.sections[j];
+		
+								// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
+								if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
+									//afficher le pt de départ et d'arrivée
+									if(j == 0 ) 
+										afficheMarqueur(section.geojson.coordinates[0][1], section.geojson.coordinates[0][0],'Départ');
+									if(j == journey.sections.length-1)	
+										afficheMarqueur(section.geojson.coordinates[section.geojson.coordinates.length-1][1], section.geojson.coordinates[section.geojson.coordinates.length-1][0],'Arrivée');
+		
+									//inverser les coordonnées récupéré de l'api pr l'afficher correctement utilisant polyline
+									var poly = section.geojson.coordinates;
+									poly.map((item)=>{
+										item.reverse()
+									 })
+									 if (section.type == "public_transport") {
+										afficheItineraire(section.geojson.coordinates, "#"+section.display_informations.color,'false');
+										console.log(section.display_informations.color);
+									 }else{
+										afficheItineraire(section.geojson.coordinates, 'black','true');
+									 }
+									 if(section.type == "public_transport"){
+										for(var i = 0; i<section.stop_date_times.length; i++){
+											var lat = section.stop_date_times[i].stop_point.coord.lat;
+											var lon = section.stop_date_times[i].stop_point.coord.lon;
+											var name = section.stop_date_times[i].stop_point.name;
+											affichePoint(lat,lon,name);
+										}
+									 }
+								}		
+							   }	
+							results += '</ul>';
+						}
+						$('#results').html(results);
+					}
+				});
+			
+	})
+	.catch(error => {
+		console.error(error);
+	});
+	// fin de récupération de l'adresse de destination
+}
+
 
 //recherche et affichage d'itinéraire avec des coordoonnes départ et arrivée après avoir appuyer sur le bouton 'c est parti'
 $(document).ready(function() {
 	$('#journey-form').submit(function(event) {
 		event.preventDefault();
 
-		//parametre de depart et d'arrivée a spécifier
-		var lngD = 2.356199;
-		var latD = 48.865871;
+		
+		mymap.on('locationfound', onLocationFound);
 
-		var lngA = 2.329358;
-		var latA = 48.883682;
-	
-		var url = 'https://api.navitia.io/v1/coverage/fr-idf/journeys?from='+lngD+'%3B'+latD+'&to='+lngA+'%3B'+latA+'&';
-
-		$.ajax({
-			url: url,
-			headers: {'Authorization': '78d327c8-89d1-4f9d-b3eb-db1d9be8c517' },
-			success: function(data) {
-				var results = '';
-				for (var i = 0; i < data.journeys.length; i++) {
-
-					var journey = data.journeys[i];
-					results += '<h3>Itinéraire ' + (i) + '</h3>';
-
-                    results += '<li>' + 'Durée : ' + journey.duration + '</li>';
-                    if (journey.fare.total != null) {
-                    	results += '<li>' + 'Coût : ' + journey.fare.total.value + '</li>';
-                    } else results += '<li>' + 'Coût : ' + "0" + '</li>';
-
-
-
-                    // Extraire l'heure d'arrivée au format HH:mm à partir de la chaîne de caractères "arrival_date_time"
-                    var arrivalTime = journey.arrival_date_time.slice(9, 14);
-                    var hours = arrivalTime.slice(0, 2);
-                    var minutes = arrivalTime.slice(2, 4);
-                    var formattedArrivalTime = hours + ':' + minutes;
-                    results += '<li>' + 'Heure d\'arrivée : ' + formattedArrivalTime + '</li>';
-					results += '<ul>';
-
-
-					for (var j = 0; j < journey.sections.length; j++) {
-
-                        var section = journey.sections[j];
-
-						// Vérifiez si l'objet "geojson" et son champ "coordinates" sont définis
-						if (section.geojson && section.geojson.coordinates && section.geojson.coordinates.length > 0) {
-							//afficher le pt de départ et d'arrivée
-							if(j == 0 ) 
-								afficheMarqueur(section.geojson.coordinates[0][1], section.geojson.coordinates[0][0],'Départ');
-							if(j == journey.sections.length-1)	
-								afficheMarqueur(section.geojson.coordinates[section.geojson.coordinates.length-1][1], section.geojson.coordinates[section.geojson.coordinates.length-1][0],'Arrivée');
-
-							//inverser les coordonnées récupéré de l'api pr l'afficher correctement utilisant polyline
-							var poly = section.geojson.coordinates;
-							poly.map((item)=>{
-								item.reverse()
-							 })
-							 if (section.type == "public_transport") {
-								afficheItineraire(section.geojson.coordinates, colors[i],'false');
-							 }else{
-								afficheItineraire(section.geojson.coordinates, colors[i],'true');
-							 }
-							 if(section.type == "public_transport"){
-								for(var i = 0; i<section.stop_date_times.length; i++){
-									var lat = section.stop_date_times[i].stop_point.coord.lat;
-									var lon = section.stop_date_times[i].stop_point.coord.lon;
-									var name = section.stop_date_times[i].stop_point.name;
-									affichePoint(lat,lon,name);
-								}
-							 }
-						}		
-               		}	
-					results += '</ul>';
-				}
-				$('#results').html(results);
-			}
-		});
+		chercherCoordonnéesDestination();
+		
 	});
 });
 
@@ -141,7 +235,7 @@ function affichePoint(lat, long, popupContent){
 
 //récupere la destination recherché par l'utilisateur
 function recupDestination() {
-	var valeur = document.getElementById("destination").value;
+	adresseDestination = document.getElementById("destination").value;
   }
 
 function afficheItineraire(coord,color,dash){
@@ -162,3 +256,4 @@ function afficheItineraire(coord,color,dash){
 function onLocationError(e) {
 	alert(e.message);
 }
+

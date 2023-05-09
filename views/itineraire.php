@@ -6,6 +6,7 @@
     <form id="journey-form">
       <label for="destination"></label>
       <input type="text" name="destination" id="destination" placeholder="station, adresse" />
+      <ul id="address-list"></ul>
       <input type="submit" value="C'est parti !">
     </form>
      
