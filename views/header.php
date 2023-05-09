@@ -45,7 +45,24 @@ if (connected()) {
 ?>
  <div class="user-login">
         <span class="icon-user"></span>
-        <a href="index.php?c=account/user">Gérer mon compte</a>
+
+
+        <?php
+
+    if($_SESSION['username'] != "admin@mail.com") {
+      ?>
+       <a href="index.php?c=account/account">Gérer mon compte</a>
+    <?php
+    }else{
+      ?>
+         <a href="index.php?c=account/account">Administrateur</a>
+    <?php
+    }
+    ?>
+
+
+
+       
       </div>
 <?php
 } else {
