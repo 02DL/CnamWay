@@ -1,5 +1,3 @@
-<script src="navitia.js"></script>
-
 <h1>Quelle est votre destination ?</h1>
     
     <form id="journey-form">
