@@ -42,6 +42,11 @@ if (!file_exists('controllers/' . $c . '.php')) {
     redirect('errors/error404');
 }
 
+//retourne le mail de l'admin, on considere qu'il n'y a qu'un seul admin dans notre système
+function getAdminMail(){
+    return "admin@mail.com";
+}
+
 require('controllers/' . $c . '.php');
 
 ?>

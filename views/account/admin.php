@@ -1,11 +1,3 @@
-      <nav>
-        <ul>
-          <li><a href="index.php?c=account/admin">Déclaration d'incident</a></li>
-          <li><a href="index.php?c=account/userList">Gestion des comptes</a></li>
-        </ul>
-      </nav>
-     
-
 <h1>Déclarer un incident</h1>
 
 <a href="index.php?c=process_signOut">Sign Out</a>
@@ -45,4 +37,12 @@
 
 </form>
 
-document.cookie = "alerte=" + alerteMsg;
+<?php 
+if (isset($_COOKIE['incidentDeclare'])) {
+?>
+<form action="index.php?c=process_finIncident" method="POST">
+  <button type="submit">Fin de l'incident</button>
+</form>
+<?php
+}
+?>

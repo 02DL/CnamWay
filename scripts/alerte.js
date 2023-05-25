@@ -7,13 +7,16 @@ function eraseCookie(name) {
 }
 
 $(document).ready(function() {
-  if(document.getElementById("messageI").value != null){
-    var alerteAdmin = document.getElementById("messageI").value;
-  }
-  
+  let cookieValue = ' ';
 
-    let cookieValue = getCookie("alerte");
-    // Afficher la valeur du cookie
+  if (checkCookieExists('incidentDeclare')) {
+    cookieValue = getCookie("incidentDeclare");
+
+  }else{
+    cookieValue = getCookie("alerte");
+    
+  }
+  // Afficher la valeur du cookie
     $('#alerte').html(cookieValue);
   });
 
@@ -31,3 +34,15 @@ function getCookie(name) {
   }
 
   
+  function checkCookieExists(cookieName) {
+    var cookies = document.cookie.split(';');
+    for (var i = 0; i < cookies.length; i++) {
+      var cookie = cookies[i].trim();
+      if (cookie.indexOf(cookieName + '=') === 0) {
+        // Le cookie existe
+        return true;
+      }
+    }
+    // Le cookie n'existe pas
+    return false;
+  }

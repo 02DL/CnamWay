@@ -27,8 +27,6 @@
         <img src="Images/logo.png" alt="Logo">
       </div>
 
-
-  
       <nav>
         <ul>
           <li><a href="index.php?c=home">Accueil</a></li>
@@ -38,18 +36,15 @@
       </nav>
      
   
-
-
     <?php
 if (connected()) {
 ?>
  <div class="user-login">
         <span class="icon-user"></span>
 
-
         <?php
 
-    if($_SESSION['username'] != "admin@mail.com") {
+    if($_SESSION['username'] != getAdminMail()) {
       ?>
        <a href="index.php?c=account/account">Gérer mon compte</a>
     <?php
@@ -60,9 +55,6 @@ if (connected()) {
     }
     ?>
 
-
-
-       
       </div>
 <?php
 } else {
