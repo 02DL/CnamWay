@@ -3,6 +3,52 @@ const rerLinks = document.querySelectorAll('a[id^="rer-"]');
 const searchButton = document.querySelector('#search-button');
 const stationName = document.querySelector('#station-name');
 const timetable = document.querySelector('#timetable');
+const API_KEY = '78d327c8-89d1-4f9d-b3eb-db1d9be8c517';
+
+// Autocomplétion
+const API_URL = 'https://api.navitia.io/v1/coverage/fr-idf/places?q=';
+const addressInput = document.getElementById('metro-1-station');
+const addressList = document.getElementById('station-list');
+
+// id ligne 1 line:IDFM:C01371
+
+addressInput.addEventListener('input', () => {
+  const query = addressInput.value;
+  
+  // Si la barre de recherche est vide, on vide la liste des adresses proposées
+  if (!query) {
+    addressList.innerHTML = '';
+    return;
+  }
+  
+  // On récupère les adresses correspondantes à partir de l'API de Navitia
+  fetch(`${API_URL}${query}&type\[\]=stop_point&filter&count=10`, {
+    headers: {
+      Authorization: API_KEY
+    }
+  })
+  .then(response => response.json())
+  .then(data => {
+    // On vide la liste des adresses proposées
+    addressList.innerHTML = '';
+    
+    // On affiche chaque adresse dans la liste
+    data.stop_points.forEach(station => {
+      const li = document.createElement('li');
+      li.textContent = station.name;
+      li.addEventListener('click', () => {
+        addressInput.value = station.name;
+        addressList.innerHTML = '';
+      });
+      addressList.appendChild(li);
+    });
+  })
+  .catch(error => {
+    console.error(error);
+  });
+});
+//fin auto complétion
+
 
 metroLinks.forEach(link => {
 	link.addEventListener('click', e => {

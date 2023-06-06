@@ -1,20 +1,11 @@
-<!DOCTYPE html>
-<html>
-<head>
-	<title>Horaire des transports en commun</title>
-	<meta charset="utf-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<script src="horaire.js"></script>
-</head>
-<body>
 	<h1>Horaires</h1>
 	<h2>Recherchez un horaire</h2>
 	<h2>Lignes de métro</h2>
-	<ul>
 		<li><a href="#" id="metro-1">Ligne 1</a></li>
 		<div id="metro-1-form">
 		<label for="metro-1-station">Nom de la station :</label>
-          <input type="text" id="metro-1-station">
+          <input name = "metro-1-station" type="text" id="metro-1-station" placeholder="nom de la station">
+		  <ul id="station-list"></ul>
           <button id="metro-1-search-button">Rechercher</button>
 		</div>
 
@@ -56,7 +47,6 @@
 
 		<li><a href="#" id="metro-14">Ligne 14</a></li>
 		<div id="metro-14-form"></div>
-	</ul>
 	<h2>Lignes de RER</h2>
 	<ul>
 		<li><a href="#" id="rer-a">RER A</a></li>
@@ -74,11 +64,10 @@
 		<li><a href="#" id="rer-e">RER E</a></li>
 		<div id="rer-e-form"></div>
 	</ul>
-	<div id="station-form" style="display: none;">
+	<div id="station-form" >
 		<label for="station-name">Nom de la station :</label>
 		<input type="text" id="station-name">
 		<button id="search-button">Rechercher</button>
 	</div>
 	<div id="timetable"></div>
-</body>
-</html>
+	<script src="scripts/horaire.js"></script>
