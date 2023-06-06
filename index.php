@@ -8,7 +8,7 @@ $config = require('config.php');
 $options = [
     PDO::ATTR_ERRMODE            => PDO::ERRMODE_EXCEPTION,
 ];
-$pdo = new PDO($config['dsn'], "root", "", $options);
+$pdo = new PDO($config['dsn'], "root", "7002n*", $options);
 //----------PDO----------
 
 function render($view, $data = [])
