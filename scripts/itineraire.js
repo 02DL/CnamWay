@@ -188,13 +188,13 @@ function chercherCoordonnéesDestination(){
 }
 
 //recherche et affichage d'itinéraire avec des coordoonnes départ et arrivée après avoir appuyer sur le bouton 'c est parti'
-$(document).ready(function() {
-	$('#journey-form').submit(function(event) {
-		event.preventDefault();
-		mymap.on('locationfound', onLocationFound);
-		chercherCoordonnéesDestination();
-	});
-});
+//$(document).ready(function() {
+	//$('#journey-form').submit(function(event) {
+	//	event.preventDefault();
+	//	mymap.on('locationfound', onLocationFound);
+		//chercherCoordonnéesDestination();
+//	});
+//});
 
 var colors = ['red','blue','orange','green','pink'];
 //fonctions utiles

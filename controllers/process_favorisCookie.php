@@ -2,6 +2,7 @@
 
 $message = $_POST["destination"];
 
-setcookie('destinationActuelle', $message);
-
+//setcookie('destinationActuelle', "rue tset");
+echo "PROCESS FAVORIS";
+//redirect('home');
 ?>
