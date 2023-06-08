@@ -63,10 +63,8 @@ function differenceEnMinutes(heure1, heure2) {
 // fonction affichage des horaires pour une station donnée : 
 
 function afficherHoraire(){
-  console.log("on est la");
 
 				var url = 'https://api.navitia.io/v1/coverage/fr-idf/stop_areas/'+id_stop_area+'/stop_schedules?filter=line.id='+current_line_id+'&';
-        console.log(id_stop_area);
 				$.ajax({
 					url: url,
 					headers: {'Authorization': API_KEY },
