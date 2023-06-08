@@ -7,7 +7,7 @@ const API_KEY = '78d327c8-89d1-4f9d-b3eb-db1d9be8c517';
 
 // Autocomplétion
 const API_URL = 'https://api.navitia.io/v1/coverage/fr-idf/pt_objects?q=';
-const addressInput = document.getElementById('metro-1-station');
+const addressInput = document.getElementById('metro-station');
 const addressList = document.getElementById('station-list');
 var id_stop_area = "";
 var current_line_id = '';
@@ -100,7 +100,7 @@ function afficherHoraire(){
 // fin de la fonction d'affichage des horaires pour une station donnée
 
 //fonction d'affichage de l'horaire après avoir appuyé sur rechercher
-const bouton_recherche = document.getElementById('metro-1-search-button');
+const bouton_recherche = document.getElementById('search-button');
 bouton_recherche.addEventListener("click", afficherHoraire);
 
 
@@ -112,12 +112,17 @@ function handleSelection(event) {
     line.classList.remove("selected");
   });
 
+  // Supprime la classe 'selected' de tous les éléments 'li'
+  const rerLines = document.querySelectorAll("#rerLines li");
+  rerLines.forEach(function (line) {
+    line.classList.remove("selected");
+  });
+
   // Ajoute la classe 'selected' à l'élément 'li' sélectionné
   const selectedLine = event.target;
   selectedLine.classList.add("selected");
 
   const selectedValue = selectedLine.dataset.line;
-  console.log("Ligne sélectionnée :", selectedValue);
   current_line_id = selectedValue;
   current_line = selectedLine.textContent;
 
@@ -125,9 +130,11 @@ function handleSelection(event) {
 
 // Sélection de la liste des lignes de métro
 const metroLines = document.getElementById("metroLines");
+const rerLines = document.getElementById("rerLines");
 
 // Ajout d'un gestionnaire d'événements de clic sur chaque élément de la liste
 metroLines.addEventListener("click", handleSelection);
+rerLines.addEventListener("click", handleSelection);
 
 
 
