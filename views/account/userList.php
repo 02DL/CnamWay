@@ -6,7 +6,13 @@
 foreach ($data['data'] as $result){ 
 ?>
    
-<li> <?php echo $result; ?>  <button type="submit">Supprimer son compte</button><button type="submit">Envoyer un mail</button></li>
+<li> <?php echo $result; ?>
+
+<form action="index.php?c=process_supprimercompte.php" method="POST">
+<button type="submit">Supprimer son compte</button>
+</form>
+
+<button type="submit">Envoyer un mail</button></li>
 
 <?php 
 } 
