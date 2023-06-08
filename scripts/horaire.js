@@ -57,6 +57,7 @@ function differenceEnMinutes(heure1, heure2) {
   const heure1Minutes = parseInt(heure1.substr(0, 2)) * 60 + parseInt(heure1.substr(2, 2));
   const heure2Minutes = parseInt(heure2.substr(0, 2)) * 60 + parseInt(heure2.substr(2, 2));
   const difference = heure2Minutes - heure1Minutes;
+  if(difference <0) return difference+1440;
   return difference;
 }
 
@@ -65,14 +66,15 @@ function differenceEnMinutes(heure1, heure2) {
 function afficherHoraire(){
 
 				var url = 'https://api.navitia.io/v1/coverage/fr-idf/stop_areas/'+id_stop_area+'/stop_schedules?filter=line.id='+current_line_id+'&';
-				$.ajax({
+				console.log(id_stop_area);
+        $.ajax({
 					url: url,
 					headers: {'Authorization': API_KEY },
 					success: function(data) {
 						var results = '';
 						for (var i = 0; i < data.stop_schedules.length; i++) {
 							var station = data.stop_schedules[i];
-              if(station.additional_informations != "terminus"){
+              if(station.additional_informations != "terminus" && station.additional_informations != "partial_terminus" ){
                 results += '<h3>'+ current_line+' ' + station.stop_point.name + ' direction '+ station.display_informations.direction+'</h3>';
 
                 //calcul du temps d'arrivée en minutes
