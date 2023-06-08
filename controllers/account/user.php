@@ -1,18 +1,18 @@
 <?php
-//récupère l'ensemble des favoris de l'utilisateur
-
+//récupère l'ensemble des id favoris de l'utilisateur
 $stmt = $pdo->prepare('SELECT FId FROM avoir where UId IN (SELECT UId FROM utilisateur WHERE UMail =?)');
 $stmt->execute([$_SESSION['username']]);
 $results = $stmt->fetchAll(PDO::FETCH_COLUMN);
 
+$favoris = array();
 
+//recupère le contenu des favoris
 $stmt = $pdo->prepare('SELECT FDest FROM favoris where FId = ?');
-$stmt->bindValue('FId:',$results);
-$stmt->execute();
-$results = $stmt->fetchAll(PDO::FETCH_COLUMN);
+foreach($results as $res){
+    $stmt->execute([$res]);
+    $fdest = $stmt->fetchAll(PDO::FETCH_COLUMN);
+    array_push($favoris, $fdest[0]);
+}
 
-//passage des données récupérées à la vue
-render('account/user', ['title' => 'Mon compte','data'=>$results]);
-
-
+render('account/user', ['title' => 'Mon compte','data'=>$favoris]);
 ?>

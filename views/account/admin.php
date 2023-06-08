@@ -1,3 +1,4 @@
+
 <h1>Déclarer un incident</h1>
 
 <a href="index.php?c=process_signOut">Sign Out</a>
@@ -16,8 +17,8 @@
     <label for="ligneT">Quelle ligne ?</label>
     <select name="ligneT" id="ligneT">
     <option value="">--Choisissez la ligne concernée--</option>
-    <option value="dog">Dog</option>
-    <option value="cat">Cat</option>
+    <option value="dog">1</option>
+    <option value="cat">2</option>
     </select>
 
   </div>
@@ -36,7 +37,6 @@
   <button type="submit">Envoyer</button>
 
 </form>
-
 <?php 
 if (isset($_COOKIE['incidentDeclare'])) {
 ?>
