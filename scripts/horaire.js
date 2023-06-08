@@ -11,6 +11,7 @@ const addressInput = document.getElementById('metro-1-station');
 const addressList = document.getElementById('station-list');
 var id_stop_area = "";
 var current_line_id = '';
+var current_line = '';
 
 
 addressInput.addEventListener('input', () => {
@@ -32,21 +33,7 @@ addressInput.addEventListener('input', () => {
   .then(data => {
     // On vide la liste des adresses proposées
     addressList.innerHTML = '';
-
-    //boucle for 
-    for(var i = 0; i<data.pt_objects.length; i++){
-      station = data.pt_objects[i];
-      const li = document.createElement('li');
-      li.textContent = station.name;
-      li.addEventListener('click', () => {
-        addressInput.value = station.name;
-        id_stop_area = station.id;
-        console.log(id_stop_area);
-        addressList.innerHTML = '';
-      });
-      addressList.appendChild(li);
-    }
-    /*
+    
     // On affiche chaque adresse dans la liste
     data.pt_objects.forEach(station => {
       const li = document.createElement('li');
@@ -57,7 +44,7 @@ addressInput.addEventListener('input', () => {
         addressList.innerHTML = '';
       });
       addressList.appendChild(li);
-    });*/
+    });
   })
   .catch(error => {
     console.error(error);
@@ -78,8 +65,8 @@ function differenceEnMinutes(heure1, heure2) {
 function afficherHoraire(){
   console.log("on est la");
 
-				var url = 'https://api.navitia.io/v1/coverage/fr-idf/stop_areas/'+id_stop_area+'/stop_schedules?filter=line.id%3Dline%3AIDFM%3AC01371&';
-		
+				var url = 'https://api.navitia.io/v1/coverage/fr-idf/stop_areas/'+id_stop_area+'/stop_schedules?filter=line.id='+current_line_id+'&';
+        console.log(id_stop_area);
 				$.ajax({
 					url: url,
 					headers: {'Authorization': API_KEY },
@@ -87,20 +74,20 @@ function afficherHoraire(){
 						var results = '';
 						for (var i = 0; i < data.stop_schedules.length; i++) {
 							var station = data.stop_schedules[i];
-							results += '<h3> Ligne 1 : ' + station.stop_point.name + ' direction '+ station.display_informations.direction+'</h3>';
-              console.log(i);
+              if(station.additional_informations != "terminus"){
+                results += '<h3>'+ current_line+' ' + station.stop_point.name + ' direction '+ station.display_informations.direction+'</h3>';
 
-              //calcul du temps d'arrivée en minutes
-              var nextTrain;
-              var secondNextTrain;
-              results += '<li>' + 'Prochain train dans : ' ;
-              for(var j = 0; j<2; j++ ){
-                var arrivalTime = station.date_times[j].date_time.slice(9, 14);
-                var current_DT = data.context.current_datetime.slice(9, 14);;
-                nextTrain = differenceEnMinutes(current_DT, arrivalTime);
-                results +=  nextTrain+ ' min'+ ' ; ';
+                //calcul du temps d'arrivée en minutes
+                var nextTrain;
+                results += '<li>' + 'Prochain train dans : ' ;
+                for(var j = 0; j<2; j++ ){
+                  var arrivalTime = station.date_times[j].date_time.slice(9, 14);
+                  var current_DT = data.context.current_datetime.slice(9, 14);;
+                  nextTrain = differenceEnMinutes(current_DT, arrivalTime);
+                  results +=  nextTrain+ ' min'+ ' ; ';
+                }
+                results += '<li>';
               }
-              results += '<li>';
 						}
 						$('#results').html(results);
 					},
@@ -134,7 +121,8 @@ function handleSelection(event) {
   const selectedValue = selectedLine.dataset.line;
   console.log("Ligne sélectionnée :", selectedValue);
   current_line_id = selectedValue;
-  // Ajoutez ici le code à exécuter lorsque la ligne est sélectionnée
+  current_line = selectedLine.textContent;
+
 }
 
 // Sélection de la liste des lignes de métro
