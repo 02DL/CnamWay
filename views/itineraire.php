@@ -1,6 +1,6 @@
 <h1>Quelle est votre destination ?</h1>
     
-    <form id="journey-form" action="index.php?c=process_favorisCookie" method="POST">
+    <form action="index.php?c=process_favorisCookie" id="journey-form" method="POST" enctype="multipart/form-data">
       <label for="destination"></label>
       <input type="text" name="destination" id="destination" placeholder="station, adresse" />
       <ul id="address-list"></ul>
@@ -25,4 +25,4 @@
 
       <div id="results"></div>
   
-      <script src="scripts/itineraire.js"></script>
+      <!-- <script src="scripts/itineraire.js"></script> -->
