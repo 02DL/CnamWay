@@ -1,52 +1,34 @@
+	<link rel="stylesheet" type="text/css" href="styles/horaire.css">
 	<h1>Horaires</h1>
 	<h2>Recherchez un horaire</h2>
 	<h2>Lignes de métro</h2>
-		<li><a href="#" id="metro-1">Ligne 1</a></li>
+  <ul id="metroLines">
+    <li data-line="line:IDFM:C01371">Ligne 1</li>
+    <li data-line="line:IDFM:C01372">Ligne 2</li>
+    <li data-line="line:IDFM:C01373">Ligne 3</li>
+	<li data-line="line:IDFM:C01386">Ligne 3bis</li>
+	<li data-line="line:IDFM:C01374">Ligne 4</li>
+	<li data-line="line:IDFM:C01375">Ligne 5</li>
+	<li data-line="line:IDFM:C01376">Ligne 6</li>
+	<li data-line="line:IDFM:C01377">Ligne 7</li>
+	<li data-line="line:IDFM:C01387">Ligne 7bis</li>
+	<li data-line="line:IDFM:C01378">Ligne 8</li>
+	<li data-line="line:IDFM:C01379">Ligne 9</li>
+	<li data-line="line:IDFM:C01380">Ligne 10</li>
+	<li data-line="line:IDFM:C01381">Ligne 11</li>
+	<li data-line="line:IDFM:C01382">Ligne 12</li>
+	<li data-line="line:IDFM:C01383">Ligne 13</li>
+	<li data-line="line:IDFM:C01384">Ligne 14</li>
+
+  </ul>
 		<div id="metro-1-form">
 		<label for="metro-1-station">Nom de la station :</label>
           <input name = "metro-1-station" type="text" id="metro-1-station" placeholder="nom de la station">
 		  <ul id="station-list"></ul>
           <button id="metro-1-search-button">Rechercher</button>
 		</div>
+		<div id="results"></div>
 
-		<li><a href="#" id="metro-2">Ligne 2</a></li>
-		<div id="metro-2-form"></div>
-
-		<li><a href="#" id="metro-3">Ligne 3</a></li>
-		<div id="metro-3-form"></div>
-
-		<li><a href="#" id="metro-4">Ligne 4</a></li>
-		<div id="metro-4-form"></div>
-
-		<li><a href="#" id="metro-5">Ligne 5</a></li>
-		<div id="metro-5-form"></div>
-
-		<li><a href="#" id="metro-6">Ligne 6</a></li>
-		<div id="metro-6-form"></div>
-
-		<li><a href="#" id="metro-7">Ligne 7</a></li>
-		<div id="metro-7-form"></div>
-
-		<li><a href="#" id="metro-8">Ligne 8</a></li>
-		<div id="metro-8-form"></div>
-
-		<li><a href="#" id="metro-9">Ligne 9</a></li>
-		<div id="metro-9-form"></div>
-
-		<li><a href="#" id="metro-10">Ligne 10</a></li>
-		<div id="metro-10-form"></div>
-
-		<li><a href="#" id="metro-11">Ligne 11</a></li>
-		<div id="metro-11-form"></div>
-
-		<li><a href="#" id="metro-12">Ligne 12</a></li>
-		<div id="metro-12-form"></div>
-
-		<li><a href="#" id="metro-13">Ligne 13</a></li>
-		<div id="metro-13-form"></div>
-
-		<li><a href="#" id="metro-14">Ligne 14</a></li>
-		<div id="metro-14-form"></div>
 	<h2>Lignes de RER</h2>
 	<ul>
 		<li><a href="#" id="rer-a">RER A</a></li>
