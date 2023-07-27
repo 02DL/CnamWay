@@ -128,11 +128,12 @@ function chercherCoordonnéesDestination(){
 						var results = '';
 						for (var i = 0; i < data.journeys.length; i++) {
 							var journey = data.journeys[i];
-							results += '<h3>Itinéraire ' + (i) + '</h3>';
-		
-							results += '<li>' + 'Durée : ' + journey.duration + '</li>';
+							results += '<h3>Itinéraire ' + (i+1) + '</h3>';
+							var duréeTrajet = Math.floor(journey.duration / 60) ;
+							var coutTrajet = journey.fare.total.value/100;
+							results += '<li>' + 'Durée : ' + duréeTrajet + ' min' +'</li>';
 							if (journey.fare.total != null) {
-								results += '<li>' + 'Coût : ' + journey.fare.total.value + '</li>';
+								results += '<li>' + 'Coût : ' + coutTrajet + ' €'+ '</li>';
 							} else results += '<li>' + 'Coût : ' + "0" + '</li>';
 		
 		
@@ -188,13 +189,13 @@ function chercherCoordonnéesDestination(){
 }
 
 //recherche et affichage d'itinéraire avec des coordoonnes départ et arrivée après avoir appuyer sur le bouton 'c est parti'
-//$(document).ready(function() {
-	//$('#journey-form').submit(function(event) {
-	//	event.preventDefault();
-	//	mymap.on('locationfound', onLocationFound);
-		//chercherCoordonnéesDestination();
-//	});
-//});
+    $(document).ready(function() {
+	    $('#journey-form').submit(function(event) {
+	        event.preventDefault();
+	        mymap.on('locationfound', onLocationFound);
+	        chercherCoordonnéesDestination();
+	    });
+     });
 
 var colors = ['red','blue','orange','green','pink'];
 //fonctions utiles

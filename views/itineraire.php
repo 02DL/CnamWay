@@ -1,6 +1,7 @@
 <h1>Quelle est votre destination ?</h1>
-    
-    <form onsubmit="return chercherCoordonnéesDestination()" action="index.php?c=process_favorisCookie" id="journey-form" method="POST" enctype="multipart/form-data">
+
+    <form onsubmit="return chercherCoordonnéesDestination()"
+     id="journey-form" method="POST" enctype="multipart/form-data">
       <label for="destination"></label>
       <input type="text" name="destination" id="destination" placeholder="station, adresse" />
       <ul id="address-list"></ul>
@@ -8,6 +9,7 @@
     </form>
    
     <?php
+    //action="index.php?c=process_favorisCookie"
     if (connected()) {
       if($_SESSION['username'] != getAdminMail()) {
     ?>

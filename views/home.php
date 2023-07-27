@@ -2,3 +2,4 @@
 <h1>Info Trafic</h1>
 
 <script src="scripts/index.js"></script>
+
